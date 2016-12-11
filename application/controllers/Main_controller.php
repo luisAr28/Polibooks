@@ -183,36 +183,6 @@
              }
 			
             
-		}
-        
-        public function buscaTuto()
-		{
-			$this->load->model('Profesor');/*modelo*/
-			
-			$t['page_title']="Tutorados";
-			
-			$usuarios = $this->Profesor->obtenerTutorados($this->session->idProfesor);
-			
-			$data['usuarios']=$usuarios;
-			
-            $this->load->view('header',$t);
-			$this->load->view('Profesor_tutorados',$data);
-            $this->load->view('footer');
-		}
-        
-        public function calificar()
-		{
-			$this->load->model('Profesor');/*modelo*/
-			
-			$t['page_title']="Calificar";
-			
-			$usuarios = $this->Profesor->calf($this->session->idProfesor);
-			
-			$data['usuarios']=$usuarios;
-			
-            $this->load->view('header',$t);
-			$this->load->view('Calificar',$data);
-            $this->load->view('footer');
-		}
+        }
 	}
 ?>

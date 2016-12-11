@@ -55,12 +55,6 @@
                     $this->db->set('Credito',0);
                     $this->db->insert('alumno');
                 }
-			/*function getData()
-			{
-				$usuarios=$this->db->get('profesor');
-				
-				return $usuarios->result();
-			}*/
         
             function obtenerDatos($idUsuario)
             {
@@ -92,21 +86,6 @@
                 return $info->result();
             }
         
-          /*  function obtenerTutorados($idProfesor)
-            {
-                $sql = "SELECT a.Nombre,a.ApPaterno,a.ApMaterno,e.Escuela from alumno a, escuela e,
-                profesor p where a.idProfesor=p.idProfesor and a.idEscuela=e.idEscuela and p.idProfesor=? and a.Estado='1'";
-                $tutorado = $this->db->query($sql,array($idProfesor));
-                return $tutorado->result();
-            }
-        
-            function calf($idProfesor)
-            {
-                $sql = "SELECT a.Nombre,a.ApPaterno,a.ApMaterno,s.calificacion from alumno a, alumnoasignatura s, profesorasignatura c  where a.idAlumno=s.idAlumno and s.idAsignatura=c.idAsignatura and c.idProfesor=?";
-                $tutorado = $this->db->query($sql,array($idProfesor));
-                return $tutorado->result();
-            }
-			*/
 		}
 
 ?>
