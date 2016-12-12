@@ -20,6 +20,9 @@
                       
                       <label class="label_form" for="apmaterno">A. Materno</label>
                       <input type="input" class="form-control" name="apmaterno" /><br />
+
+                      <label class="label_form" for="email">Email</label>
+                      <input type="input" class="form-control" name="email" /><br />
                       
                       <label class="label_form" for="calle">Calle</label>
                       <input type="input" class="form-control" name="calle" /><br />

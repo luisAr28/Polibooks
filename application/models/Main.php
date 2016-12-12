@@ -1,4 +1,4 @@
-<?
+<?php
 	class Main extends CI_Model
 		{
 			function Main_model()
@@ -33,6 +33,7 @@
                    $mun = $this->input->post('municipio');
                    $edo = $this->input->post('estado');
                    $password = $this->input->post('pass');
+                   $email = $this->input->post('email');
                     
                     
                     $this->db->set('idUsuario',$usuario);
@@ -53,6 +54,8 @@
                     $this->db->set('Municipio',$municipio);
                     $this->db->set('Edo',$edo);
                     $this->db->set('Credito',0);
+                    $this->db->set('email',$email);
+                    
                     $this->db->insert('alumno');
                 }
         
@@ -85,6 +88,68 @@
                 $info = $this->db->query($sql);
                 return $info->result();
             }
+            function subirArchivo($nomfile,$id,$num)
+            {
+          
+            $this->db->insert('impresiones',array('idimpresion'=>'','archivo'=>$nomfile,'estado'=>'1','idAlumno'=>$id,'noPaginas'=>$num));
+              
+
+            }
+            function mostrarArchivos()
+            {
+              $query="select alumno.idAlumno,archivo,noPaginas,credito from impresiones,alumno where alumno.idAlumno=impresiones.idAlumno order by 1";
+              $row=$this->db->query($query);
+                if($row->num_rows()>0)
+                  return $row->result();
+                else 
+                  return false;
+            }
+            function mostrarAlumnos()
+            {
+              $query="select idAlumno,nombre,apPaterno,apMaterno,credito,email from alumno order by 3";
+              $row=$this->db->query($query);
+                if($row->num_rows()>0)
+                  return $row->result();
+                else 
+                  return false;
+
+            }
+            function actualizaCredito($data)
+            {
+              $data2 = array(
+                'credito'=>$data['creditof']+$data['credito']
+                );
+              $this->db->where('idAlumno', $data['id']);
+              $this->db->update('alumno', $data2);
+
+            }
+            function credito($data)
+            {
+              $this->db->select('credito');
+              $this->db->from('alumno');
+              $this->db->where('idalumno',$data['id']);
+
+              $query = $this->db->get();
+              if($query->num_rows() > 0 )
+              {
+              return $query;
+              }
+
+            }
+            function getNombre($data)
+            {
+              $this->db->select('nombre');
+              $this->db->from('alumno');
+              $this->db->where('idalumno',$data['id']);
+
+              $query = $this->db->get();
+              if($query->num_rows() > 0 )
+              {
+              return $query;
+              }
+
+            }
+            
         
 		}
 

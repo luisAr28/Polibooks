@@ -34,6 +34,37 @@
 </nav>
 	
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
-           <h1>IMPRESIONES</h1>
+           
+           <div class="container">
+<h1>Impresiones</h1>
+          
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Boleta </th>
+        <th>Nombre del Archivo</th>
+        <th>Numero de Paginas</th>
+        <th>Credito Disponible</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      
+
+           <?php
+      foreach ($impresiones as $impresion) { ?>
+      <tr>
+      <td><?= $impresion->idAlumno;?></td>
+      <td><?= $impresion->archivo;?></td>
+      <td><?= $impresion->noPaginas;?></td>
+      <td><?= $impresion->credito;?></td>
+      
+       </tr>
+       <?php } ?>
+           </tbody>
+  </table>
+</div>
+</body>
+</html>
         <!--</form>-->
 	</body>

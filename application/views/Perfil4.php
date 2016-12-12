@@ -32,8 +32,49 @@
       </div>
       <!-- /.container -->
 </nav>
-	
-	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
-           <h1>CAJA</h1>
-        <!--</form>-->
+	<div class="container">
+<h1>Caja</h1>
+          
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Boleta </th>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Credito Actual</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      
+
+           <?php
+
+      foreach ($alumnos as $alumno) { ?>
+      <tr>
+      <td><?= $alumno->idAlumno;?></td>
+      <td><?= $alumno->nombre;?></td>
+      <td><?= $alumno->apPaterno;?></td>
+      <td><?= $alumno->apMaterno;?></td>
+      <td><?= $alumno->credito;?></td>
+      <td>
+      <?=form_open('/Main_controller/recibirDato')?>
+      <?php 
+      $credito= array('name'=>'credito','placeholder'=>'Ingrese saldo');
+      $id=array('name'=>'id','type'=>'hidden','value'=>$alumno->idAlumno);
+      $email=array('name'=>'email','type'=>'hidden','value'=>$alumno->email);
+      ?>
+      <?=form_label('Credito: ','credito')?>
+      <?=form_input($credito) ?>
+      <?=form_input($id) ?>
+      <?=form_input($email) ?>
+      <?=form_submit('','Recargar')?>
+      <?=form_close()?>
+      </td>
+       </tr>
+       <?php } ?>
+           </tbody>
+  </table>
+</div>
 	</body>
