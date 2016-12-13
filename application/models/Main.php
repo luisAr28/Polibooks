@@ -97,7 +97,7 @@
             }
             function mostrarArchivos()
             {
-              $query="select alumno.idAlumno,archivo,noPaginas,credito from impresiones,alumno where alumno.idAlumno=impresiones.idAlumno order by 1";
+              $query="select alumno.idAlumno,archivo,noPaginas,credito,idimpresion from impresiones,alumno where alumno.idAlumno=impresiones.idAlumno order by 1";
               $row=$this->db->query($query);
                 if($row->num_rows()>0)
                   return $row->result();
@@ -147,6 +147,22 @@
               {
               return $query;
               }
+
+            }
+            function imprime($data)
+            {
+             $creditof=$data['credito']-$data['noPaginas'];
+             $data2 = array(
+                'credito'=>$creditof
+                );
+              $this->db->where('idAlumno', $data['idAlumno']);
+              $this->db->update('alumno', $data2);
+
+              $this->db->where('idimpresion', $data['idimpresion']);
+                $this->db->delete('impresiones');
+              
+
+
 
             }
             

@@ -45,20 +45,34 @@
         <th>Nombre del Archivo</th>
         <th>Numero de Paginas</th>
         <th>Credito Disponible</th>
+        <th>Cobrar</th>
       </tr>
     </thead>
     <tbody>
     
       
 
-           <?php
+           <?php     
       foreach ($impresiones as $impresion) { ?>
       <tr>
       <td><?= $impresion->idAlumno;?></td>
-      <td><?= $impresion->archivo;?></td>
+      <td><?php echo anchor('Main_controller/downloads'.$impresion->archivo, $impresion->archivo); ?></td>
+      
       <td><?= $impresion->noPaginas;?></td>
       <td><?= $impresion->credito;?></td>
+      <td>
+      <form action="imprimeDocumento" method="post">
+      <?php $idimpresion=array('name'=>'idimpresion','type'=>'hidden','value'=>$impresion->idimpresion);?>
+      <?php $noPaginas=array('name'=>'noPaginas','type'=>'hidden','value'=>$impresion->noPaginas);?>
+      <?php $credito=array('name'=>'credito','type'=>'hidden','value'=>$impresion->credito);?>
+      <?php $idAlumno=array('name'=>'idAlumno','type'=>'hidden','value'=>$impresion->idAlumno);?>
+      <?=form_input($idimpresion) ?>
+      <?=form_input($noPaginas) ?>
+      <?=form_input($credito) ?>
+      <?=form_input($idAlumno) ?>
+      <input type="submit" value="Cobrar"/></form></td>
       
+     
        </tr>
        <?php } ?>
            </tbody>

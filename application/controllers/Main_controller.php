@@ -238,12 +238,10 @@ public function do_upload()
         {
             $this->load->model('Main');
             $data = array('upload_data' => $this->upload->data());
-            echo $data['upload_data']['full_path'];
-            $num=0;
-            echo $num;
+            //echo $data['upload_data']['full_path'];
             $num=$this->numeroPaginasPdf($data['upload_data']['full_path']);
-            echo "after:",$num;
-            $nomfile=$data['upload_data']['client_name'];
+            $nomfile=$data['upload_data']['orig_name'];
+            print_r($data);
             $id = $this->session->idUsuario;
             //insert a la base de datos con el nombre del archivo , idalumno y el estado 
             $this->Main->subirArchivo($nomfile,$id,$num);
@@ -272,7 +270,7 @@ public function info(){
 //************ DESCARGA DE ARCHIVOS ***********************
 
         public function downloads($name){
-         
+
        $data = file_get_contents($this->folder.$name);  
        force_download($name,$data); 
       
@@ -290,6 +288,21 @@ public function info(){
         $data['creditof']=$this->getCredito($data);
         $data['nomb']=$this->getNombre($data);
          $this->sendMailGmail($data);
+        $this->perfil();
+
+
+    }
+    function imprimeDocumento()
+    {
+        $this->load->model('Main');
+          $data= array(
+            'idimpresion'=>$this->input->post('idimpresion'),
+            'noPaginas'=>$this->input->post('noPaginas'),
+            'credito'=>$this->input->post('credito'),
+            'idAlumno'=>$this->input->post('idAlumno')
+
+            );
+        $this->Main->imprime($data);
         $this->perfil();
 
 
