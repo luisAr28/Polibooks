@@ -90,7 +90,7 @@
             }
             function subirArchivo($nomfile,$id,$num)
             {
-          
+            
             $this->db->insert('impresiones',array('idimpresion'=>'','archivo'=>$nomfile,'estado'=>'1','idAlumno'=>$id,'noPaginas'=>$num));
               
 

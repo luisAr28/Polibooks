@@ -71,6 +71,7 @@
       <?=form_input($email) ?>
       <?=form_submit('','Recargar')?>
       <?=form_close()?>
+      
       </td>
        </tr>
        <?php } ?>

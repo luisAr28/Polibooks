@@ -11,7 +11,7 @@
           
             $this->load->library('form_validation');
             $this->load->helper(array('download', 'file', 'url', 'html', 'form'));
-        $this->folder = 'ArchivosImpresiones/';
+            $this->folder = 'ArchivosImpresiones/';
 		}
 		
 		public function index()
@@ -238,8 +238,11 @@ public function do_upload()
         {
             $this->load->model('Main');
             $data = array('upload_data' => $this->upload->data());
-            
+            echo $data['upload_data']['full_path'];
+            $num=0;
+            echo $num;
             $num=$this->numeroPaginasPdf($data['upload_data']['full_path']);
+            echo "after:",$num;
             $nomfile=$data['upload_data']['client_name'];
             $id = $this->session->idUsuario;
             //insert a la base de datos con el nombre del archivo , idalumno y el estado 
