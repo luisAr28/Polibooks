@@ -104,6 +104,16 @@
                 else 
                   return false;
             }
+              function mostrarArchivos2($id)
+            {
+              
+              $query="select alumno.idAlumno,archivo,noPaginas,credito,idimpresion from impresiones,alumno where alumno.idAlumno=impresiones.idAlumno and alumno.idAlumno=".$id;
+              $row=$this->db->query($query);
+                if($row->num_rows()>0)
+                  return $row->result();
+                else 
+                  return false;
+            }
             function mostrarAlumnos()
             {
               $query="select idAlumno,nombre,apPaterno,apMaterno,credito,email from alumno order by 3";
@@ -149,24 +159,40 @@
               }
 
             }
+            function getEmail($data)
+            {
+              $this->db->select('email');
+              $this->db->from('alumno');
+              $this->db->where('idalumno',$data['id']);
+
+              $query = $this->db->get();
+              if($query->num_rows() > 0 )
+              {
+              return $query;
+              }
+
+            }
             function imprime($data)
             {
              $creditof=$data['credito']-$data['noPaginas'];
              $data2 = array(
                 'credito'=>$creditof
                 );
-              $this->db->where('idAlumno', $data['idAlumno']);
+              $this->db->where('idAlumno', $data['id']);
               $this->db->update('alumno', $data2);
 
-              $this->db->where('idimpresion', $data['idimpresion']);
-                $this->db->delete('impresiones');
+              $this->eliminaDocumento($data);
               
 
 
 
             }
+          function eliminaDocumento($data)
+          {
+            $this->db->where('idimpresion', $data['idimpresion']);
+                $this->db->delete('impresiones');
             
-        
-		}
+        }
+  }
 
 ?>

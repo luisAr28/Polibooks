@@ -52,7 +52,10 @@
     
       
 
-           <?php     
+           <?php if($impresiones==NULL)
+           {
+              echo "<h3>No hay archivos disponible<h3>";
+           }else{
       foreach ($impresiones as $impresion) { ?>
       <tr>
       <td><?= $impresion->idAlumno;?></td>
@@ -65,16 +68,16 @@
       <?php $idimpresion=array('name'=>'idimpresion','type'=>'hidden','value'=>$impresion->idimpresion);?>
       <?php $noPaginas=array('name'=>'noPaginas','type'=>'hidden','value'=>$impresion->noPaginas);?>
       <?php $credito=array('name'=>'credito','type'=>'hidden','value'=>$impresion->credito);?>
-      <?php $idAlumno=array('name'=>'idAlumno','type'=>'hidden','value'=>$impresion->idAlumno);?>
+      <?php $id=array('name'=>'id','type'=>'hidden','value'=>$impresion->idAlumno);?>
       <?=form_input($idimpresion) ?>
       <?=form_input($noPaginas) ?>
       <?=form_input($credito) ?>
-      <?=form_input($idAlumno) ?>
+      <?=form_input($id) ?>
       <input type="submit" value="Cobrar"/></form></td>
       
      
        </tr>
-       <?php } ?>
+       <?php } }?>
            </tbody>
   </table>
 </div>

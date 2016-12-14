@@ -163,7 +163,7 @@
                 $usuarios = $this->Main->obtenerDat($this->session->idUsuario);
                 
 			    $data['usuarios']=$usuarios;
-                
+            
                 $this->load->view('header',$t);
                 $this->load->view('Perfil2',$data);
                 $this->load->view('footer');
@@ -212,9 +212,11 @@ function numeroPaginasPdf($archivoPDF)
 }
 //**********Formulario +++++++++++
 public function formCarga()
-    {
+    {$this->load->model('Main');
         $this->load->view('header');
-        $this->load->view('cargarArchivos/upload_form', array('error' => ' ' )); 
+        $id = $this->session->idUsuario;
+        $data['impresiones']=$this->Main->mostrarArchivos2($id);
+        $this->load->view('cargarArchivos/upload_form', array('error' => ' ','impresiones'=>$data['impresiones'] )); 
     }
 
 //************ CARGA DE ARCHIVOS  ****************  
@@ -230,15 +232,19 @@ public function do_upload()
 
     if ( ! $this->upload->do_upload())
         {
-            $error = array('error' => 'Este archivo no es un pdf');
-
+            $this->load->model('Main');
+             $id = $this->session->idUsuario;
+            
+            $data['impresiones']=$this->Main->mostrarArchivos2($id);
+            $error = array('error' => 'Este archivo no es un pdf','impresiones'=>$data['impresiones']);
+           $this->load->view('header');
             $this->load->view('cargarArchivos/upload_form', $error);
         }
         else
         {
             $this->load->model('Main');
             $data = array('upload_data' => $this->upload->data());
-            //echo $data['upload_data']['full_path'];
+            
             $num=$this->numeroPaginasPdf($data['upload_data']['full_path']);
             $nomfile=$data['upload_data']['orig_name'];
             print_r($data);
@@ -299,13 +305,25 @@ public function info(){
             'idimpresion'=>$this->input->post('idimpresion'),
             'noPaginas'=>$this->input->post('noPaginas'),
             'credito'=>$this->input->post('credito'),
-            'idAlumno'=>$this->input->post('idAlumno')
+            'id'=>$this->input->post('id')
 
             );
         $this->Main->imprime($data);
+        $data['creditof']=$this->getCredito($data);
+        $data['nomb']=$this->getNombre($data);
+        $data['email']=$this->getEmail($data);
+         $this->sendMailGmail($data);
         $this->perfil();
 
 
+    }
+    function elimarDocumento()
+    {
+        $this->load->model('Main');
+        $data=array('idimpresion'=>$this->input->post('idimpresion'));
+        $this->Main->eliminaDocumento($data);
+        $this->formCarga();
+        
     }
     function getCredito($data)
     {
@@ -327,6 +345,17 @@ public function info(){
             }
         return $val;
     }
+     function getEmail($data)
+    {
+        $query=$this->Main->getEmail($data);
+        foreach ($query->result() as $row)
+            {
+            $val=$row->email;
+       
+            }
+        return $val;
+    }
+
 
     
     public function sendMailGmail($data)
