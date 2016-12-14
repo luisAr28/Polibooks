@@ -508,6 +508,7 @@ public function info(){
             );
           $this->load->model('Main');
           $this->Main->prestamoComputadora($data);
+          $this->perfil();
         }
 
         function obtenerCompuPrestamo2(){
@@ -518,12 +519,14 @@ public function info(){
             );
           $this->load->model('Main');
           $this->Main->prestamoComputadora($data);
+          $this->verDisponibles();
         }
 
     public function verCompus(){
         $this->load->model('Main');
         $compus=$this->Main->obtenerDisponibles();
         $data['disponibles']=$compus;
+        $this->load->view('header');
         $this->load->view('/Compus/compusAlumnos',$data);
     }
 
@@ -531,6 +534,7 @@ public function info(){
         $this->load->model('Main');
         $compus=$this->Main->obtenerDisponibles();
         $data['disponibles']=$compus;
+        $this->load->view('header');
         $this->load->view('/Compus/adminCompusDisponibles',$data);
     }
 
@@ -538,6 +542,7 @@ public function info(){
         $this->load->model('Main');
         $compus=$this->Main->obtenerOcupadas();
         $data['disponibles']=$compus;
+        $this->load->view('header');
         $this->load->view('/Compus/adminCompusOcupadas',$data);
     }
 

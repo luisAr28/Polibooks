@@ -69,7 +69,7 @@
       <?=form_input($credito) ?>
       <?=form_input($id) ?>
       
-      <button type="submit" class="btn btn-success btn_form"><span class="glyphicon glyphicon-usd"></span> Cobrar</button>
+      <button type="submit" class="btn btn-success btn_form"><span class="glyphicon glyphicon-print"></span> Cobrar</button>
       </form></td>
       
        </tr>

@@ -231,7 +231,7 @@
         }
 
         function obtenerOcupadas(){
-          $compus= "select * from computadora where estado=1";
+          $compus= "select * from prestamocomputadora where estado=1";
           $disponibles=$this->db->query($compus);
           if($disponibles->num_rows()>0)
             return $disponibles->result();

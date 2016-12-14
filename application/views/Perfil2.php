@@ -47,14 +47,19 @@
       </div>
       <!-- /.container -->
 </nav>
-	<p>hola</p>
+	<div id="principal">
+  <div id="container">
+  <div class="container-fluid bg-1 text-center">
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
            <?php foreach($usuarios as $u):?>
-         <h1><?=$u->idUsuario?></h1>
-         <h1><?=$u->Nombre?></h1>
-         <h1><?=$u->ApPaterno?></h1>
-         <h1><?=$u->ApMaterno?></h1>
+            <h1>Bienvenid@ <?=$u->Nombre?></h1>
+         
+        
+         <h3><?=$u->idUsuario?></h3>
           <!--  </form>-->
           <?php endforeach;?>
         <!--</form>-->
+        </div>
+        </div>
+        </div>  
 	</body>

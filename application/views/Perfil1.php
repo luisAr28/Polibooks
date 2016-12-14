@@ -22,14 +22,11 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li><a href="<?php echo base_url(); ?>Main_controller/verCompus">Computadoras</a></li>
-                      <li><a href="#">Acción #2</a></li>
-                      <li><a href="#">Acción #3</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#">Acción #4</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#">Acción #5</a></li>
+                      
+
                     </ul>
                   </li>
+                  
                  <!-- <li>
                       <a href="buscaDis">Biblioteca</a>
                   </li>-->
@@ -48,19 +45,22 @@
                       <a href="<?php echo base_url(); ?>Main_controller/cerrar">Cerrar Sesión</a>
                   </li>
               </ul>
+
           </div>
           <!-- /.navbar-collapse -->
       </div>
       <!-- /.container -->
 </nav>
-	<p>alumno</p>
+<div id="principal">
+  <div id="container">
+  <div class="container-fluid bg-1 text-center">
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
            <?php foreach($usuarios as $u):?>
-         <h1><?=$u->idUsuario?></h1>
-         <h1><?=$u->Nombre?></h1>
-         <h1><?=$u->ApPaterno?></h1>
-         <h1><?=$u->ApMaterno?></h1>
-         <h1><?=$u->Credito?></h1>
+         
+         <h1>Bienvenid@ <?=$u->Nombre?></h1>
+         <h3><?=$u->idUsuario?></h3>
+    
+         <h5>Saldo disponible: <?=$u->Credito?></h5>
           <!--  </form>-->
           <?php endforeach;?>
 
@@ -77,4 +77,7 @@
 
          }
       </script>
+      </div>
+      </div>
+      </div>
 	</body>
