@@ -11,7 +11,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="perfil">Home</a>
+              <a class="navbar-brand" href="<?php echo base_url(); ?>Main_controller/perfil">Home</a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,25 +54,52 @@
       <!-- /.container -->
 </nav>
 	
-	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
-           <?php foreach($usuarios as $u):?>
-         <h1><?=$u->idUsuario?></h1>
-         <h1><?=$u->Nombre?></h1>
-         <h1><?=$u->ApPaterno?></h1>
-         <h1><?=$u->ApMaterno?></h1>
-         <h1><?=$u->Credito?></h1>
-          <!--  </form>-->
-          <?php endforeach;?>
+	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST"><!--  </form>-->
+      
+      
+                <table border="solid">
+                    <thead>
+                        <tr bgcolor="white">
+
+                            <th>Nombre</th>
+                            <th>Autor</th>
+                            <th>Editorial</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($usuarios as $u):?>
+
+                        <tr bgcolor="white">
+
+                        <td><?=$u->Nombre?></td>
+                        <td><?=$u->Autor?></td>
+                        <td><?=$u->Editorial?></td>
+                        <td><?=$u->Cantidad?></td>
+                        <td><button id="bot" class="btn btn-default" onclick="sol()" value="<?=$u->idLibro?>">Solicita</button></td>
+                        </tr>
+
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+		    
         <!--</form>-->
-        
-      <script>
+        <script>
          function lib()
          {
              var info = document.getElementById("libro").value;
              info = info.split(" ").join("_"); 
-          //   alert(info);
+            // alert(info);
              window.location.href = "http://localhost/Polibooks/Main_controller/buscaLibro/"+info;
 
          }
+            
+        function sol()
+            {
+                var valor = document.getElementById("bot").value;
+              //  alert(valor);
+                window.location.href = "http://localhost/Polibooks/Main_controller/solicitaLib/"+valor;
+            }
       </script>
 	</body>

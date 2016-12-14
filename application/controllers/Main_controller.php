@@ -15,7 +15,7 @@
 		
 		public function index()
 		{
-			/*$this->load->model('Profesor');*/
+			
 			$this->load->model('Main');
             $mun = $this->Main->obtenerM();
             $edo = $this->Main->obtenerE();
@@ -24,9 +24,6 @@
             
 			$t['page_title']="Prueba";
 			
-			/*$usuarios = $this->Profesor->getData();
-			
-			$data['usuarios']=$usuarios;*/
 			
             $this->load->view('header',$t);
 			$this->load->view('Main_view',$sel);
@@ -183,6 +180,122 @@
              }
 			
             
+        }
+        
+      /*  public function get_Libro()
+        {
+           // echo "<alert>Si</alert>";
+            $this->load->model('Alumno');
+            $keyword = $this->input->post('term');
+ 
+            $data['response'] = 'false'; //Set default response
+
+            $query = $this->Alumno->get_Lib($q);
+            
+            if($query->num_rows() > 0)
+            {
+               $data['response'] = 'true'; //Set response
+               $data['message'] = array(); //Create array
+               foreach($query->result() as $row)
+               {
+                  $data['message'][] = array('label'=> $row->nombre, 'value'=> $row->idAutor); //Add a row to array
+               }
+            }
+            echo json_encode($data);
+            
+
+            if (isset($_GET['term']))
+            {
+              $q = strtolower($_GET['term']);
+              
+            }
+        }*/
+        
+        public function get_Libro() 
+        {
+            if (!isset($_GET['term']))
+                {
+                    exit;
+                }
+
+            $this->load->model('Alumno');
+            $q = strtolower($_GET['term']);
+            $this->Alumno->get_Lib($q);
+        }
+        
+        public function buscaLibro($info)
+        {
+                    
+            $this->load->model('Alumno');/*modelo*/
+			
+			$t['page_title']="Libros";
+			
+			$usuarios = $this->Alumno->obtenerLibros($info);
+			
+			$data['usuarios']=$usuarios;
+    
+            $this->load->view('header',$t);
+			$this->load->view('InfoLib',$data);
+            $this->load->view('footer');
+        }
+        
+        public function solicitaLib($info)
+        {
+            $this->load->model('Alumno');
+            
+            $this->db->select('Cantidad');
+            $this->db->from('libro');
+            $this->db->where('idLibro='.$info);
+            $tipo = $this->db->get();
+            
+            foreach($tipo->result() as $t)                    
+             if($t->Cantidad>0) 
+             {
+                 $id = $this->session->idUsuario;
+                 $this->db->select('count(*) as numero');
+                 $this->db->from('prestamolibro');
+                 $this->db->where('idAlumno="'.$id.'"');
+                 $num = $this->db->get();
+                 
+                 foreach($num->result() as $n)                    
+                    if(($n->numero)<3) 
+                    {
+                        $this->Alumno->presLibros($info,$id);
+                        
+                    }
+                    else
+                    {
+                        echo "<script>"."alert('No puedes solicitar mas de 3 prestamos');"."</script>";
+                 
+                        $usuarios = $this->Alumno->obtenerLibrosID($info);
+
+                        $data['usuarios']=$usuarios;
+
+                        $this->load->view('header',$t);
+                        $this->load->view('InfoLib',$data);
+                        $this->load->view('footer');
+                    }
+                 
+               
+                
+                // redirect('Main_controller/perfil');
+             }
+             else
+             {
+                echo "<script>"."alert('Ejemplares no disponibles');"."</script>";
+                 
+                $usuarios = $this->Alumno->obtenerLibrosID($info);
+			
+                $data['usuarios']=$usuarios;
+
+                $this->load->view('header',$t);
+                $this->load->view('InfoLib',$data);
+                $this->load->view('footer');
+             }
+         
+        //    $this->load->view('header');
+          //  $this->load->view('VerPrestamos',$data);
+          //  $this->load->view('footer');
         }
 	}
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	class Main extends CI_Model
 		{
 			function Main_model()
