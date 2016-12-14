@@ -32,7 +32,7 @@
       </div>
       <!-- /.container -->
 </nav>
-	
+	<p>hola</p>
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
            <?php foreach($usuarios as $u):?>
          <h1><?=$u->idUsuario?></h1>

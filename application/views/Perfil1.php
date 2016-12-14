@@ -42,7 +42,7 @@
                 </div>
               <ul class="nav navbar-nav">
                   <li>
-                      <a href="buscaTuto">Impresiones</a>
+                      <a href="formCarga">Impresiones</a>
                   </li>
                   <li>
                       <a href="<?php echo base_url(); ?>Main_controller/cerrar">Cerrar Sesión</a>
@@ -53,7 +53,7 @@
       </div>
       <!-- /.container -->
 </nav>
-	
+	<p>alumno</p>
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
            <?php foreach($usuarios as $u):?>
          <h1><?=$u->idUsuario?></h1>
@@ -63,6 +63,8 @@
          <h1><?=$u->Credito?></h1>
           <!--  </form>-->
           <?php endforeach;?>
+
+
         <!--</form>-->
         
       <script>

@@ -10,7 +10,8 @@
             $this->load->helper('url_helper');
           
             $this->load->library('form_validation');
-            
+            $this->load->helper(array('download', 'file', 'url', 'html', 'form'));
+            $this->folder = 'ArchivosImpresiones/';
 		}
 		
 		public function index()
@@ -159,7 +160,7 @@
                 $usuarios = $this->Main->obtenerDat($this->session->idUsuario);
                 
 			    $data['usuarios']=$usuarios;
-                
+            
                 $this->load->view('header',$t);
                 $this->load->view('Perfil2',$data);
                 $this->load->view('footer');
@@ -168,19 +169,24 @@
             if($t->Tipo==3)
             {
                 $this->load->view('header',$t);
-                $this->load->view('Perfil3');
+                $data['impresiones']=$this->Main->mostrarArchivos();
+                $this->load->view('Perfil3',$data);
                 $this->load->view('footer');
+
+
              }
             
             if($t->Tipo==4)
             {
                 $this->load->view('header',$t);
-                $this->load->view('Perfil4');
+                $data['alumnos']=$this->Main->mostrarAlumnos();
+                $this->load->view('Perfil4',$data);
                 $this->load->view('footer');
              }
 			
             
         }
+<<<<<<< HEAD
         
       /*  public function get_Libro()
         {
@@ -298,4 +304,205 @@
           //  $this->load->view('footer');
         }
 	}
+=======
+    
+//********obtener numero de paginas pdf
+function numeroPaginasPdf($archivoPDF)
+{
+    $stream = fopen($archivoPDF, "r");
+    $content = fread ($stream, filesize($archivoPDF));
+ 
+    if(!$stream || !$content)
+        return 0;
+ 
+    $count = 0;
+ 
+    $regex  = "/\/Count\s+(\d+)/";
+    $regex2 = "/\/Page\W*(\d+)/";
+    $regex3 = "/\/N\s+(\d+)/";
+ 
+    if(preg_match_all($regex, $content, $matches))
+        $count = max($matches);
+ 
+    return $count[0];
+}
+//**********Formulario +++++++++++
+public function formCarga()
+    {$this->load->model('Main');
+        $this->load->view('header');
+        $id = $this->session->idUsuario;
+        $data['impresiones']=$this->Main->mostrarArchivos2($id);
+        $this->load->view('cargarArchivos/upload_form', array('error' => ' ','impresiones'=>$data['impresiones'] )); 
+    }
+
+//************ CARGA DE ARCHIVOS  ****************  
+public function do_upload() 
+    {      
+        $config['upload_path'] = $this->folder;
+        //$config['allowed_types'] = 'zip|rar|pdf|docx|txt|jpeg|png|jpg';
+        $config['allowed_types']='pdf';
+        $config['remove_spaces']=TRUE;
+        $config['max_size'] = '2048';
+
+        $this->load->library('upload', $config);
+
+    if ( ! $this->upload->do_upload())
+        {
+            $this->load->model('Main');
+             $id = $this->session->idUsuario;
+            
+            $data['impresiones']=$this->Main->mostrarArchivos2($id);
+            $error = array('error' => 'Este archivo no es un pdf','impresiones'=>$data['impresiones']);
+           $this->load->view('header');
+            $this->load->view('cargarArchivos/upload_form', $error);
+        }
+        else
+        {
+            $this->load->model('Main');
+            $data = array('upload_data' => $this->upload->data());
+            
+            $num=$this->numeroPaginasPdf($data['upload_data']['full_path']);
+            $nomfile=$data['upload_data']['orig_name'];
+            print_r($data);
+            $id = $this->session->idUsuario;
+            //insert a la base de datos con el nombre del archivo , idalumno y el estado 
+            $this->Main->subirArchivo($nomfile,$id,$num);
+            $this->load->view('header');
+           $this->load->view('cargarArchivos/upload_success', $data);
+
+        }
+
+   } 
+//************ SE OBTIENEN LOS NOMBRES DE LOS ARCHIVOS ****************
+
+public function info(){
+    
+    $files = get_filenames($this->folder, FALSE);
+    
+    if($files){
+        $data['files']=$files;
+             
+        }else{
+            $data['files']=NULL;
+        }
+    $this->load->view('header');
+   $this->load->view('cargarArchivos/filenames',$data);    
+ 
+}
+//************ DESCARGA DE ARCHIVOS ***********************
+
+        public function downloads($name){
+
+       $data = file_get_contents($this->folder.$name);  
+       force_download($name,$data); 
+      
+    }
+    function recibirDato()
+    {
+        $this->load->model('Main');
+        $data= array(
+            'credito'=>$this->input->post('credito'),
+            'id'=>$this->input->post('id'),
+            'email'=>$this->input->post('email')
+            );
+        $data['creditof']=$this->getCredito($data);
+        $this->Main->actualizaCredito($data);
+        $data['creditof']=$this->getCredito($data);
+        $data['nomb']=$this->getNombre($data);
+         $this->sendMailGmail($data);
+        $this->perfil();
+
+
+    }
+    function imprimeDocumento()
+    {
+        $this->load->model('Main');
+          $data= array(
+            'idimpresion'=>$this->input->post('idimpresion'),
+            'noPaginas'=>$this->input->post('noPaginas'),
+            'credito'=>$this->input->post('credito'),
+            'id'=>$this->input->post('id')
+
+            );
+        $this->Main->imprime($data);
+        $data['creditof']=$this->getCredito($data);
+        $data['nomb']=$this->getNombre($data);
+        $data['email']=$this->getEmail($data);
+         $this->sendMailGmail($data);
+        $this->perfil();
+
+
+    }
+    function elimarDocumento()
+    {
+        $this->load->model('Main');
+        $data=array('idimpresion'=>$this->input->post('idimpresion'));
+        $this->Main->eliminaDocumento($data);
+        $this->formCarga();
+        
+    }
+    function getCredito($data)
+    {
+        $query=$this->Main->credito($data);
+        foreach ($query->result() as $row)
+            {
+            $val=$row->credito;
+       
+            }
+        return $val;
+    }
+    function getNombre($data)
+    {
+        $query=$this->Main->getNombre($data);
+        foreach ($query->result() as $row)
+            {
+            $val=$row->nombre;
+       
+            }
+        return $val;
+    }
+     function getEmail($data)
+    {
+        $query=$this->Main->getEmail($data);
+        foreach ($query->result() as $row)
+            {
+            $val=$row->email;
+       
+            }
+        return $val;
+    }
+
+
+    
+    public function sendMailGmail($data)
+    {
+        //cargamos la libreria email de ci
+        $this->load->library("email");
+ 
+        //configuracion para gmail
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'polibooksipn@gmail.com',
+            'smtp_pass' => 'polibooks123',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );   
+       
+        //cargamos la configuración para enviar con gmail
+        $this->email->initialize($configGmail);
+ 
+        $this->email->from('Polibooks');
+        $this->email->to($data['email']);
+        $this->email->subject('Hol@'.$data['nomb']);
+        $this->email->message('<h1>Este correo se envia para confirmar tu credito actual <h2>Credito Disponible:'.$data['creditof'].'<h3>Boleta:'.$data['id'].'<h4>Buen dia');
+        $this->email->send();
+        //con esto podemos ver el resultado
+        //var_dump($this->email->print_debugger());
+    }
+}
+
+>>>>>>> origin/Luis
 ?>

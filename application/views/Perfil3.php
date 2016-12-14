@@ -34,6 +34,54 @@
 </nav>
 	
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
-           <h1>IMPRESIONES</h1>
+           
+           <div class="container">
+<h1>Impresiones</h1>
+          
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Boleta </th>
+        <th>Nombre del Archivo</th>
+        <th>Numero de Paginas</th>
+        <th>Credito Disponible</th>
+        <th>Cobrar</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      
+
+           <?php if($impresiones==NULL)
+           {
+              echo "<h3>No hay archivos disponible<h3>";
+           }else{
+      foreach ($impresiones as $impresion) { ?>
+      <tr>
+      <td><?= $impresion->idAlumno;?></td>
+      <td><?php echo anchor('Main_controller/downloads'.$impresion->archivo, $impresion->archivo); ?></td>
+      
+      <td><?= $impresion->noPaginas;?></td>
+      <td><?= $impresion->credito;?></td>
+      <td>
+      <form action="imprimeDocumento" method="post">
+      <?php $idimpresion=array('name'=>'idimpresion','type'=>'hidden','value'=>$impresion->idimpresion);?>
+      <?php $noPaginas=array('name'=>'noPaginas','type'=>'hidden','value'=>$impresion->noPaginas);?>
+      <?php $credito=array('name'=>'credito','type'=>'hidden','value'=>$impresion->credito);?>
+      <?php $id=array('name'=>'id','type'=>'hidden','value'=>$impresion->idAlumno);?>
+      <?=form_input($idimpresion) ?>
+      <?=form_input($noPaginas) ?>
+      <?=form_input($credito) ?>
+      <?=form_input($id) ?>
+      <input type="submit" value="Cobrar"/></form></td>
+      
+     
+       </tr>
+       <?php } }?>
+           </tbody>
+  </table>
+</div>
+</body>
+</html>
         <!--</form>-->
 	</body>
