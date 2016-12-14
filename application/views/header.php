@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>js/jquery/jquery-ui.css" type="text/css" charset="utf-8">
  
  <link rel="stylesheet" href="<?php echo base_url(); ?>css/perfil.css" type="text/css" charset="utf-8">
-
+ <link rel="stylesheet" href="<?php echo base_url(); ?>css/estiloIndex.css" type="text/css" charset="utf-8">
  <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery/jquery.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery/jquery-ui.js"></script>
 <!--<script type="text/javascript" src="../js/m.js"></script>
@@ -39,6 +39,7 @@
       });
     });*/
       </script>
+      
  
  
   </head>

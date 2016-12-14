@@ -185,9 +185,7 @@
              }
 			
             
-        }
-<<<<<<< HEAD
-        
+        }        
       /*  public function get_Libro()
         {
            // echo "<alert>Si</alert>";
@@ -303,9 +301,8 @@
           //  $this->load->view('VerPrestamos',$data);
           //  $this->load->view('footer');
         }
-	}
-=======
-    
+	
+
 //********obtener numero de paginas pdf
 function numeroPaginasPdf($archivoPDF)
 {
@@ -504,5 +501,4 @@ public function info(){
     }
 }
 
->>>>>>> origin/Luis
 ?>

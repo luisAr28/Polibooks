@@ -1,6 +1,6 @@
 
 	<body>
-
+ 
 	    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
       <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -32,7 +32,7 @@
       </div>
       <!-- /.container -->
 </nav>
-	
+	 <div id="principal">
 	<!--	<form name="tabla" action="http://localhost/Polibooks/Main_controller/perfil" method="POST">-->
            
            <div class="container">
@@ -73,13 +73,15 @@
       <?=form_input($noPaginas) ?>
       <?=form_input($credito) ?>
       <?=form_input($id) ?>
-      <input type="submit" value="Cobrar"/></form></td>
       
-     
+      <button type="submit">Cobrar</button>
+      </form></td>
+      
        </tr>
        <?php } }?>
            </tbody>
   </table>
+</div>
 </div>
 </body>
 </html>

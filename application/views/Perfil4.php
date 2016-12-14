@@ -32,6 +32,7 @@
       </div>
       <!-- /.container -->
 </nav>
+<div id="principal">
 	<div class="container">
 <h1>Caja</h1>
           
@@ -69,7 +70,7 @@
       <?=form_input($credito) ?>
       <?=form_input($id) ?>
       <?=form_input($email) ?>
-      <?=form_submit('','Recargar')?>
+      <button type="submit" class="btn btn-primary btn_form"><span class="glyphicon glyphicon-usd"></span> Recargar</button>
       <?=form_close()?>
       
       </td>
@@ -77,5 +78,6 @@
        <?php } ?>
            </tbody>
   </table>
+</div>
 </div>
 	</body>
