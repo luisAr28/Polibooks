@@ -1,7 +1,5 @@
-
-	<body>
-
-	    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -11,21 +9,38 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Home</a>
+              <a class="navbar-brand" href="perfil">Home</a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li>
-                      <a href="buscaDis">Libros</a>
+                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Libros<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="<?php echo base_url(); ?>Main_controller/infoP">Solicitudes</a></li>
+                      <li><a href="<?php echo base_url(); ?>Main_controller/getP">Prestamos</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#">Agrega libros</a></li>
+                    </ul>
+                  </li>
+                 <!-- <li>
+                      <a href="buscaDis">Biblioteca</a>
+                  </li>-->
+              
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Computadoras<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="<?php echo base_url(); ?>Main_controller/verDisponibles">Disponibles</a></li>
+                      <li><a href="<?php echo base_url(); ?>Main_controller/verOcupadas">Ocupadas</a></li>
+                    </ul>
                   </li>
                   <li>
-                      <a href="buscaTuto">Computadoras</a>
+                      <a href="<?php echo base_url(); ?>Main_controller/cerrar">Cerrar Sesión</a>
                   </li>
-                  <li>
-                      <a href="cerrar">Cerrar Sesión</a>
-                  </li>
-                
               </ul>
           </div>
           <!-- /.navbar-collapse -->

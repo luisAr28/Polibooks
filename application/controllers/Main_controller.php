@@ -498,6 +498,66 @@ public function info(){
         //con esto podemos ver el resultado
         //var_dump($this->email->print_debugger());
     }
+
+    //Obtener el número de computadora para prestamo
+    function obtenerCompuPrestamo(){
+
+          $data = array(
+            'alumno'=>$this->session->idUsuario,
+            'computadora'=>$this->input->post('compu')
+            );
+          $this->load->model('Main');
+          $this->Main->prestamoComputadora($data);
+        }
+
+        function obtenerCompuPrestamo2(){
+
+          $data = array(
+            'computadora'=>$this->input->post('compu'),
+            'alumno'=>$this->input->post('boleta')
+            );
+          $this->load->model('Main');
+          $this->Main->prestamoComputadora($data);
+        }
+
+    public function verCompus(){
+        $this->load->model('Main');
+        $compus=$this->Main->obtenerDisponibles();
+        $data['disponibles']=$compus;
+        $this->load->view('/Compus/compusAlumnos',$data);
+    }
+
+    public function verDisponibles(){
+        $this->load->model('Main');
+        $compus=$this->Main->obtenerDisponibles();
+        $data['disponibles']=$compus;
+        $this->load->view('/Compus/adminCompusDisponibles',$data);
+    }
+
+    public function verOcupadas(){
+        $this->load->model('Main');
+        $compus=$this->Main->obtenerOcupadas();
+        $data['disponibles']=$compus;
+        $this->load->view('/Compus/adminCompusOcupadas',$data);
+    }
+
+    function liberarCompuPrestamo(){
+
+          $data = array(
+            'computadora'=>$this->input->post('compu')
+            );
+          $this->load->model('Main');
+          $this->Main->liberarComputadora($data);
+        }
+
+        function confirmarCompuPrestamo(){
+
+          $data = array(
+            'computadora'=>$this->input->post('compu')
+            );
+          $this->load->model('Main');
+          $this->Main->confirmarComputadora($data);
+        }
 }
 
 ?>

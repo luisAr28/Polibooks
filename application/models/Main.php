@@ -193,6 +193,63 @@
                 $this->db->delete('impresiones');
             
         }
+
+        //para el prestamo de computadoras
+        function prestamoComputadora($data){
+          $fecha= 'select curTime() as hora';
+          $hora=$this->db->query($fecha);
+          foreach($hora->result() as $h){
+            $h1=$h->hora;
+          }
+
+          $fecha2= 'select curTime() + interval 10 minute as horac';
+          $hora2=$this->db->query($fecha2);
+          foreach($hora2->result() as $h2){
+            $hc=$h2->horac;
+          }
+
+          $fechap= 'select curdate() as fecha';
+          $fechar=$this->db->query($fechap);
+          foreach($fechar->result() as $fp){
+            $fr1=$fp->fecha;
+          }
+
+          $this->db->insert('prestamoComputadora',array('idAlumno'=>$data['alumno'],'idcomputadora'=>$data['computadora'],'horapedido'=>$h1,'fechaPedido'=>$fr1,'horaConfirmacion'=>$hc,'estado'=>1,'confirmacion'=>0));
+
+          $sql='update computadora set estado=1 where idcomputadora=?';
+          $this->db->query($sql,array($data['computadora']));
+
+        }
+
+        function obtenerDisponibles(){
+          $compus= "select * from computadora where estado=0";
+          $disponibles=$this->db->query($compus);
+          if($disponibles->num_rows()>0)
+            return $disponibles->result();
+          else return false;
+
+        }
+
+        function obtenerOcupadas(){
+          $compus= "select * from computadora where estado=1";
+          $disponibles=$this->db->query($compus);
+          if($disponibles->num_rows()>0)
+            return $disponibles->result();
+          else return false;
+
+        }
+
+         function liberarComputadora($data){
+          $sql='update computadora set estado=0 where idcomputadora=?';
+          $this->db->query($sql,array($data['computadora']));
+
+        }
+
+         function confirmarComputadora($data){
+          $sql='update prestamocomputadora set confirmacion=1 where idcomputadora=?';
+          $this->db->query($sql,array($data['computadora']));
+
+        }
   }
 
 ?>

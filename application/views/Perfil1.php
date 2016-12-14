@@ -21,7 +21,7 @@
                       Biblioteca <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Acción #1</a></li>
+                      <li><a href="<?php echo base_url(); ?>Main_controller/verCompus">Computadoras</a></li>
                       <li><a href="#">Acción #2</a></li>
                       <li><a href="#">Acción #3</a></li>
                       <li class="divider"></li>
