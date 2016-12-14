@@ -1,6 +1,6 @@
-
+ <script> $(function(){$('#datos').dataTable();})</script>
 	<body>
- 
+
 	    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
       <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -16,12 +16,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li>
-                      <a href="buscaDis">Libros</a>
-                  </li>
-                  <li>
-                      <a href="buscaTuto">Computadoras</a>
-                  </li>
+                
                   <li>
                       <a href="cerrar">Cerrar Sesión</a>
                   </li>
@@ -38,7 +33,7 @@
            <div class="container">
 <h1>Impresiones</h1>
           
-  <table class="table table-hover">
+  <table class="table table-hover" id="datos">
     <thead>
       <tr>
         <th>Boleta </th>
@@ -74,7 +69,7 @@
       <?=form_input($credito) ?>
       <?=form_input($id) ?>
       
-      <button type="submit">Cobrar</button>
+      <button type="submit" class="btn btn-success btn_form"><span class="glyphicon glyphicon-usd"></span> Cobrar</button>
       </form></td>
       
        </tr>

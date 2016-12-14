@@ -360,7 +360,6 @@ public function do_upload()
             
             $num=$this->numeroPaginasPdf($data['upload_data']['full_path']);
             $nomfile=$data['upload_data']['orig_name'];
-            print_r($data);
             $id = $this->session->idUsuario;
             //insert a la base de datos con el nombre del archivo , idalumno y el estado 
             $this->Main->subirArchivo($nomfile,$id,$num);

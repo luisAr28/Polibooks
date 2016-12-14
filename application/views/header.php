@@ -15,20 +15,24 @@
  
  <link rel="stylesheet" href="<?php echo base_url(); ?>css/perfil.css" type="text/css" charset="utf-8">
  <link rel="stylesheet" href="<?php echo base_url(); ?>css/estiloIndex.css" type="text/css" charset="utf-8">
- <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery/jquery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery/jquery-ui.js"></script>
+ <!--<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery/jquery.js"></script>-->
+<!--<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery/jquery-ui.js"></script>-->
+<script type="text/javascript" src="<?php echo base_url(); ?>js/JQDataTable/jquery.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>js/JQDataTable/jquery.dataTables.min.js"></script>
+
 <!--<script type="text/javascript" src="../js/m.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
       <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
  <script>
-      
+    /*
      $(function(){
   $("#libro").autocomplete({
     source: '<?php echo base_url(); ?>/Main_controller/get_Libro' 
       // path to the get_birds method
      //source: "get_birds"
   });
-});  
+});  */
      
      /*
      $(function(){
@@ -39,7 +43,7 @@
       });
     });*/
       </script>
-      
+     
  
  
   </head>
